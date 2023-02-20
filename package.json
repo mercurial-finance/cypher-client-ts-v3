@@ -1,5 +1,5 @@
 {
-  "name": "@chugach-foundation/cypher-client",
+  "name": "@mercurial-finance/cypher-client",
   "version": "4.1.1",
   "description": "TypeScript SDK for cypher protocol v3",
   "main": "./dist/index.js",
