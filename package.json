@@ -2,21 +2,15 @@
   "name": "@chugach-foundation/cypher-client",
   "version": "4.1.1",
   "description": "TypeScript SDK for cypher protocol v3",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
-    "lib/**/*"
+    "dist/**"
   ],
-  "repository": "https://github.com/chugach-foundation/cypher-client-ts-v3",
-  "author": "cypher protocol",
-  "license": "Apache 2.0",
   "scripts": {
-    "build": "npx tsc",
-    "export-to-client": "anchor build --provider.cluster devnet && cp ../target/idl/* ./src/generated/idl && cp ../target/types/* ./src/generated/types && rm -rf ./lib && npx tsc",
-    "lint": "eslint src --ext .ts",
-    "fmt": "prettier --config .prettierrc 'src/**/*.ts' --check",
-    "fmt:fix": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "prepare": "npx tsc"
+    "test": "node --inspect -r ts-node/register ./test/index.ts",
+    "build": "tsup"
   },
   "devDependencies": {
     "@types/bn.js": "^5.1.1",
@@ -29,6 +23,7 @@
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.1.2",
+    "tsup": "^6.6.3",
     "typescript": "^4.9.5"
   },
   "dependencies": {
@@ -39,6 +34,7 @@
     "@project-serum/serum": "^0.13.65",
     "@pythnetwork/client": "^2.14.0",
     "@solana/spl-token": "^0.3.7",
-    "@solana/web3.js": "^1.73.2"
+    "@solana/web3.js": "^1.73.2",
+    "buffer-layout": "^1.2.2"
   }
 }
