@@ -12,7 +12,6 @@ import {
   Program,
   Provider
 } from '@project-serum/anchor';
-import { FaucetClient } from './faucet';
 import { CONFIGS } from '../constants';
 import cypherIdl from '../generated/idl/cypher.json';
 import type { Cypher } from '../generated/types/cypher';
@@ -21,7 +20,6 @@ import { PublicKey } from '@solana/web3.js';
 
 export class CypherClient {
   private _program: Program<Cypher>;
-  public faucet: FaucetClient;
 
   constructor(
     readonly cluster: Cluster,
@@ -38,30 +36,17 @@ export class CypherClient {
       provider
     );
     if (wallet) {
-      this.connectWallet(wallet, rpcEndpoint, confirmOpts);
+      this.connectWallet(wallet, confirmOpts);
     }
   }
 
-  connectWallet(
-    wallet: Wallet,
-    rpcEndpoint: string,
-    confirmOpts = AnchorProvider.defaultOptions()
-  ) {
+  connectWallet(wallet: Wallet, confirmOpts = AnchorProvider.defaultOptions()) {
     const provider = new AnchorProvider(this.connection, wallet, confirmOpts);
     this._program = new Program<Cypher>(
       cypherIdl as Cypher,
       CONFIGS[this.cluster].CYPHER_PID,
       provider
     );
-
-    if (this.cluster !== 'mainnet-beta') {
-      this.faucet = new FaucetClient(
-        this.cluster,
-        rpcEndpoint,
-        wallet,
-        confirmOpts
-      );
-    }
   }
 
   private get _provider(): Provider {
